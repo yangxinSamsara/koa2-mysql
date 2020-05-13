@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="杨欣">
+    <title>登录</title>
+</head>
+
+<body>
+    <div class="singin">
+        <form class="form" method="post">
+            <div>
+                <label>用户名：</label>
+                <input placeholder="请输入用户名" id="name" type="text" name="name">
+            </div>
+            <div>
+                <label>密码：</label>
+                <input placeholder="请输入密码" id="password" type="password" name="password">
+            </div>
+            <button class="submit" id="btn">登录</button>
+        </form>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script>
+        let btn = document.getElementById("btn")
+        btn.onclick = function (e) {
+            let name = document.getElementById("name").value
+            let password = document.getElementById("password").value
+            e.preventDefault();
+            let data = { name, password }
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:3333/singin",
+                dataType: 'json',
+                data: data,
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        if (confirm("登陆成功，去首页")) {
+                            window.location.href = "/"
+                        }
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
